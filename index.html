@@ -1,20 +1,745 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Visor 360° con A-Frame</title>
+<html> 
+<!------------encabezado de pagina----------->
+<!--dentro de la etiqueta head esta el encabezado del documento html-->
+ <head> 
+	<title>LOUVRE</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="{Favicon}">
+
+<style>
+        * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Open Sans', sans-serif; /*especifico el nombre y familia de la tipografia a usar*/
+}
+html {
+  scroll-behavior: smooth; /*para desplazarse "scrolear" suavemente dentro de la página al presionar un enlace*/
+}
+/***************************************************/
+
+
+/**********************************/
+/*estilos para header de la página*/
+/**********************************/
+header {/*caracteristicas elementos dentro del header de la pagina*/
+	font-size: 24px; /*tamaño de las fuentes que aprecen en el header*/
+  	background-color: black;  /*color fondo encabezado*/
+    height: 130px;  /* altura del encabezado, equivale a 5.5em*/
+    padding-left: 10%; /*hago un espacio a la izquierda al interior del contenedor header de 10% del ancho del viewport*/
+    padding-right: 10%; /*hago un espacio a la derecha al interior del contenedor header de 10% del ancho del viewport*/
+  	box-shadow: 0px 1px 8px grey; /*efecto de material con sombreado sobre el fondo*/
+    transition: 100ms; /*para la transicion con media queries diseño responsivo*/
+}
+@media screen and (max-width: 700px) {
+header {
+	height: 260px;  /* altura del encabezado, equivale a 5.5em*/
+	}
+}
+.menu-container {/*caracteristicas elementos en contenedor con la clase menu-container*/
+  	display: flex; /*tipo de layout felxbox*/
+  	flex-direction: column; /*rederizara/dibujara los items/elementos hijos en el layout 
+  	como una columna, un contenedor o un item sobre el otro */
+}
+.identificador {/*caracteristicas elementos en contenedor con la clase identificador*/
+  	/*border: 5px solid #222;  /* For debugging */
+  	width: 100%; /*ancho que tendra el contenedor con clase menu*/
+  	display: flex; /*sera un elemento/item de tipo flex*/
+  	justify-content: center; /*defino la alineación horizontal de los items hijos al centro*/
+}
+.identificador img{/*caracteristicas imagen identificadora dentro del contenedor con clase identificador*/
+	margin-top: 15px; /*un margen arriba de 15 px*/
+    height: 54.61px; /*ancho que tendra la imagen identificadora*/
+}
+.ligas-secciones{/*caracteristicas elementos en contenedor con la clase secciones*/
+	/*border: 5px solid #555;  /* For debugging */
+	width: 100%; /*ancho que tendra el contenedor con clase menu*/
+	display: flex; /*sera un elemento/item de tipo flex*/
+	justify-content: space-between; /*defino la alineación horizontal de los items hijos diciendo
+	cuando hay mas de uno distribuya el esapcio restante entre los espacios de cada elemento/item*/
+}
+.ligas-secciones a{/*caracteristicas elementos tipo enlace dentro del contenedor con clase secciones*/
+	color: grey; /*color que tendran las fuentes de los enlaces*/
+	text-decoration: none; /*le quito decoraciones a los enlaces, saeln sin subrayar ahora*/
+  	font-weight: bold; /*tipo de letra bold*/
+ 	margin-top: 10px;
+ 	transition: 50ms; /*para la transicion con media queries diseño responsivo*/
+}
+.ligas-secciones a:hover{
+  transform: scale(1.03);
+  transition: 50ms;
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px) {
+  .ligas-secciones {
+    flex-direction: column;
+    text-align: center;
+    }
+ }
+/***************************************************/
+
+
+
+
+
+
+
+/********************************/
+/*estilos para body de la página*/
+/********************************/
+.seccion-contenedor1 {
+      display: flex;
+      gap: 20px; /* espacio entre columnas, opcional */ 
+	  background-color: rgba(255, 255, 255, 0.2);
+	  border-radius: 20px
+}
+.columna {
+      flex: 1; /* cada columna toma el mismo ancho */
+      box-sizing: border-box;
+}
+.contenedor-columnas {
+    display: flex;
+    gap: 20px; /* Espacio entre columnas */
+}
+.columna img {
+    width: 100%; /* Para que la imagen se ajuste al ancho de la columna */
+    height: auto;
+}
+.contenedor-subcolumnas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas dentro del texto */
+    gap: 20px; /* Espacio entre subcolumnas */
+}
+.subcolumna {
+    padding: 10px;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+	background-color: #8D6F64;
+}
+.subcolumna img {
+    width: 30%; /* Para que la imagen se ajuste al ancho de la columna */
+    height: auto;
+	display: flex;
+	align-items: center;
+}	
+.secciones {/*caracteristicas elementos en contenedor con la clase menu-container*/
+  	background-image: url('https://64.media.tumblr.com/81d707f2dc94a4adb8e4904537fce0df/308cb51a99721618-db/s2048x3072/97ac069b9302e4c4a194c3c8edf3d18c77d3dafe.pnj');
+	  background-size: contain; 
+      background-repeat: no-repeat; 
+      background-position: top; 
+      background-color: #d1bca8;
+	display: flex; /*tipo de layout felxbox*/
+  	flex-direction: column; /*rederizara/dibujara los items/elementos hijos en el layout 
+  	como una columna, un contenedor o un item sobre el otro */
+  	padding-left: 10%; /*hago un espacio a la izquierda al interior del contenedor header de 10% del ancho del viewport*/
+    padding-right: 10%; /*hago un espacio a la derecha al interior del contenedor header de 10% del ancho del viewport*/
+}
+.texto-secc {
+	display: flex; /*sera un elemento/item de tipo flex*/
+	flex-direction: column;
+	justify-content:justify;/*rederizara/dibujara los items/elementos hijos en el layout 
+  	como una columna, un contenedor o un item sobre el otro */
+}
+.texto-secc h1{
+	display: flex; /*sera un elemento/item de tipo flex*/
+	justify-content: center; /*defino la alineación horizontal de los items hijos al centro*/
+	margin-top: 25px;
+}
+.texto-secc h2{
+	font-size: 80pt;
+	display: flex; /*sera un elemento/item de tipo flex*/
+	justify-content: center; /*defino la alineación horizontal de los items hijos al centro*/
+	margin-top: 25px;
+}
+.texto-secc p{
+	font-size: 18pt;
+	display: flex; /*sera un elemento/item de tipo flex*/
+	justify-content: center;
+	margin-top: 10px;
+}
+.contenedor-imagen {
+  	display: flex; /*sera un elemento/item de tipo flex*/
+  	flex-direction: column;
+  	align-items: center;
+}
+.imgs-secc-1{
+	display: flex; /*sera un elemento/item de tipo flex*/
+  	flex-direction: column;
+  	align-items: center; 
+}
+.par-imgs-escritorio{/*caracteristicas elementos en contenedor con la clase secciones*/
+	/*border: 5px solid #555;  /* For debugging */
+	width: 65%; /*ancho que tendra el contenedor con clase menu*/
+	display: flex; /*sera un elemento/item de tipo flex*/
+	justify-content: space-around; /*defino la alineación horizontal de los items hijos diciendo
+	cuando hay mas de uno distribuya el esapcio restante entre los espacios de cada elemento/item*/
+}
+.par-imgs-escritorio img{
+	width: 50%;
+	display: flex; /*sera un elemento/item de tipo flex*/
+}
+.par-imgs-escritorio img:hover{
+  transform: scale(1.03);
+  transition: 200ms;
+}
+.par-imgs-escritorio p{
+	width: 40%;
+	font-size: 16pt;
+	font-style: italic;
+	text-align: center;
+	display: flex; /*sera un elemento/item de tipo flex*/
+}
+.par-imgs-mobile{/*caracteristicas elementos en contenedor con la clase secciones*/
+	display: none;
+}
+.par-imgs-mobile img{
+	display: none;
+}
+.par-imgs-mobile p{
+	display: none;
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px) {
+	.contenedor-columnas {
+        flex-direction: column; /* Cambia a una sola columna */
+    }
+	.columna {
+        flex-direction: column; /* Cambia a una sola columna */
+    }
+	.texto-secc p{
+		font-size: 14pt;
+		flex-direction: column;
+	}
+	.contenedor-imagen {
+    display: flex;
+  	align-items: center;
+    }
+	.par-imgs-escritorio{/*caracteristicas elementos en contenedor con la clase secciones*/
+		display: none;
+	}
+	.par-imgs-escritorio img{
+		display: none;
+	}
+	.par-imgs-escritorio img:hover{
+	 	display: none;
+	}
+	.par-imgs-escritorio p{
+		display: none;
+	}
+	.par-imgs-mobile{/*caracteristicas elementos en contenedor con la clase secciones*/
+		/*border: 5px solid #555;  /* For debugging */
+		width: 100%; /*ancho que tendra el contenedor con clase menu*/
+  		display: flex; /*sera un elemento/item de tipo flex*/
+  		flex-direction: column;
+  		align-items: center; 
+	}
+	.par-imgs-mobile img{
+		width: 100%;
+		transition: 200ms;
+		display: flex; /*sera un elemento/item de tipo flex*/
+	}
+	.par-imgs-mobile img:hover{
+	 	transform: scale(1.03);
+  		transition: 200ms;
+	}
+	.par-imgs-mobile p{
+		width: 100%;
+		font-size: 12pt;
+		font-style: italic;
+		text-align: center;
+		display: flex; /*sera un elemento/item de tipo flex*/
+	}
+ }
+.contenedor-imagen img{
+	display: flex; /*sera un elemento/item de tipo flex*/
+	width: 50%;
+	transition: 200ms;
+}
+.contenedor-imagen img:hover{
+  transform: scale(1.03);
+  transition: 200ms;
+}
+.contenedor-imagen p{
+	width: 50%;
+	text-align: center;
+	font-size: 16pt;
+	font-style: italic;
+	display: flex; /*sera un elemento/item de tipo flex*/
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px){
+	.contenedor-imagen img{
+		width: 100%;
+		transition: 200ms;
+		flex-direction: column;
+	}
+	.contenedor-imagen p{
+		width: 100%;
+		font-size: 12pt;
+	}
+}
+.contenedor-imagen-secc4{
+	display: flex; /*sera un elemento/item de tipo flex*/
+  	flex-direction: column;
+  	align-items: center;
+}
+.contenedor-imagen-secc4 p{
+	width: 80%;
+	text-align: center;
+	font-style: italic;
+	font-size: 16pt;
+	display: flex; /*sera un elemento/item de tipo flex*/
+}
+.contenedor-imagen-secc4 img{
+	display: flex; /*sera un elemento/item de tipo flex*/
+	width: 80%;
+	transition: 200ms;
+}
+.contenedor-imagen-secc4 img:hover{
+  transform: scale(1.03);
+  transition: 200ms;
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px){
+	.contenedor-imagen-secc4 p{
+		width: 100%;
+		font-size: 12pt;
+	}
+	.contenedor-imagen-secc4 img{
+		display: flex; /*sera un elemento/item de tipo flex*/
+		width: 100%;
+		transition: 200ms;
+	}
+}
+
+/**********************************/
+/*estilos para footer de la página*/
+/**********************************/
+footer {
+  	background-color: black;/*color fondo pie de pagina*/
+  	margin-top: 40px;
+  	box-shadow: 0px 1px 8px grey;
+  	display: flex; /*sera un elemento/item de tipo flex*/
+  	flex-direction: column;
+  	align-items: center; 
+}
+.footer-item{
+	margin-top: 47px;
+	width: 100%;
+  	display: flex; /*sera un elemento/item de tipo flex*/
+  	justify-content: center; /*defino la alineación horizontal de los items hijos al centro*/
+}
+.footer-item img{
+	height: 60px;
+	margin-right: 35px;
+}
+.copyright{
+	font-size: 17pt;
+	text-align: center;
+	margin-top: 49px;
+	margin-bottom: 95px;
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px){
+	.footer-item{
+  		flex-direction: column;
+  		align-items: center; 
+	}
+	.footer-item img{
+		height: 50px;
+		margin-top: 35px;
+		margin-right: 0px;
+	}
+	.copyright{
+		font-size: 12pt;
+	}
+}
+
+/*********************************/
+/*estilos para icono hacia arriba*/
+/*********************************/
+.ir-arriba {
+  	display: flex; /*sera un elemento/item de tipo flex*/
+  	flex-direction: column;
+  	align-items: center; 
+}
+.ir-arriba img{
+  	height: 60px;
+  	padding-right: 30px;
+  	text-decoration: none;
+  	cursor:pointer;
+  	position:fixed;
+ 	bottom:20px;
+}
+/**media query cuando ancho es menor o igual a 700px**/
+@media screen and (max-width: 700px){
+	.ir-arriba img{
+		height: 50px;
+  		padding-right: 0px;
+	}
+}
+.ir-arriba img:hover{
+	transform: scale(1.1);
+  	transition: 100ms;
+}
+/***************************************************/
+            /* Custom CSS */
+            {CustomCSS}
+        </style>
     
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 </head>
-<body>
-    <a-scene>
-        <!-- Imagen 360° (Usando la URL de Google Drive en formato de visualización directa) -->
-        <a-sky src="https://i.postimg.cc/SS0YH2xv/360.jpg"></a-sky>
 
-        <!-- Cámara y control de movimiento -->
-        <a-entity camera look-controls position="0 1.6 0"></a-entity>
-    </a-scene>
+
+<body> 
+
+
+	<!--dentro de la estiqueta header esta todo lo que sera el encanbezado de la página, pudiendo colocarse dentro del body o antes del body-->
+	<header class='menu-container' id="inicio">
+
+      <div class='identificador'>
+        <!----modificar nombre y ruta de la imagen para cambiar el logo por el propio----->
+       <img src="https://64.media.tumblr.com/d9952d21f36d7ee95f02154d2e47d6b1/308cb51a99721618-68/s2048x3072/73863aeb5bdac9723c10a4d268ebe071f11d61cc.pnj">
+      </div>
+
+      <div class='ligas-secciones'>
+      	<!----modificar nombre de la seccion acorde a la necesidad----->
+          <a href="#secc1">LOUVRE</a>
+          <a href="#secc2">EVENTOS</a>
+          <a href="#secc3">LITERATURA</a>
+          <a href="#secc4">FILMS</a>
+        </div>
+
+    </header>
+
+ 
+
+
+	<!--contenedor que agrupa todos los contenedores que tienen los contenidos de cada sección que aprecen entre el encabezado y pie de pagina-->
+  <main class="secciones">
+    <div class="seccion-contenedor1" id="secc1">
+      <!-- Columna de texto -->
+      <div class="columna">
+        <div class="texto-secc">
+                <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+          <h2 align="center">Bienvenidos al LOUVRE</h2>
+		  <br>
+		  <br>
+          <h1 align="center">Un lugar de inspiración</h1>
+		        
+        </div>
+      </div>
+                <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+      <!-- Columna de imagen -->
+      <div class="columna">
+                <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+        <a href="https://selanime.tumblr.com/">
+          <div class="contenedor-imagen">
+            <img src="https://64.media.tumblr.com/5f0f217b215dc8ee7da5e29aa26c0e7c/308cb51a99721618-11/s2048x3072/dd046124b0d82e381843a9a30e80a5d8f77c3c78.pnj" title="visor360" alt="Imagen descriptiva">
+          </div>
+        </a>
+		        <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+      </div>
+    </div>
+	       <div class="texto-secc" style="padding-left: 20px; padding-right: 20px; padding-bottom: 15px; border-radius: 20px; background-color: black">
+		       
+		  	    <p align="justify" style="color: white;">Descubre uno de los museos más icónicos del mundo, donde el arte y la historia se encuentran. El Louvre, ubicado en el corazón de París, alberga más de 35,000 obras maestras que abarcan desde antiguas civilizaciones hasta el siglo XIX. Déjate maravillar por piezas legendarias como la Mona Lisa o la Venus de Milo mientras recorres sus majestuosas galerías. ¡Una experiencia inolvidable te espera en cada rincón!</p>
+		        
+	       </div>
+		        <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>
+
+
+		        <br><!--etiqueta para un brinco de renglón-->
+								
+    			
+
+    	<!--contenedor para contenidos de cada sección-->
+    	<div class='seccion-contenedor' id="secc2">
+    		<!--contenedor para el texto de cada sección-->
+    		<div class="texto-secc">
+    			<!--si se quiere modificar contenido susutituir el texto entre las etiquetas de texto tipo h1-->
+		        <h1>EVENTOS</h1>
+                <div class="contenedor-columnas">
+                     <div class="columna">
+                     <img src="https://64.media.tumblr.com/3f935c7e388dd1879b552515a71935bd/308cb51a99721618-9b/s2048x3072/b9379f03e25188c35e5cf51d11fb975d1e0aa721.pnj" title="Festival" alt="Imagen descriptiva">
+                     </div>
+                 <div class="columna">
+	            <br>
+				&nbsp
+				<br>
+				&nbsp
+				<br>				 
+                     <h1 align="center">Festival Cultural y Artístico que celebra la creatividad en todas sus formas.</h1>
+					 <p align="center">Un espacio donde convergen literatura y el cine independiente.</p>
+				<br>
+				&nbsp
+				<br>
+				&nbsp
+				<br> 
+				     <p align="center">Ponencias programadas</p>
+				<br>
+				&nbsp
+				<br> 					 
+                    <div class="contenedor-subcolumnas">
+					
+                    <div class="subcolumna">
+                        <h3>Jorge Guerra</h3>
+                        <p>Detective de la historia</p>
+                    </div>
+                    <div class="subcolumna">
+                        <h3>Antony Cyril Sutton</h3>
+                        <p>Investigador del sistema económico</p>
+                    </div>
+                    <div class="subcolumna">
+                        <h3>Juan Marcelo Gullo Omodeo</h3>
+                        <p>Politólogo e historiador</p>
+                    </div>
+                    <div class="subcolumna">
+                        <h3>Juan Miguel Zunzunegui</h3>
+                        <p>Escritor, músico, poeta y académico.</p>
+                    </div>
+					     <a href="https://youtube.com/playlist?list=PLoL9LDLjQ0r0OwIwO5-dD-cEACxSf7lAT&si=EUdwKs2KcA-gPrJC">
+					     <p align="left">Conoce mas de los ponentes</p>
+						 </a>
+                    </div>
+                 </div>
+    		<!--contenedor para las imagenes de la sección OJO: este tiene un layout para una imagen-->		
+    	    </div>
+			
+		</div>
+				<br>
+				&nbsp
+				<br>
+		<div class="texto-secc" style="padding-left: 20px; padding-right: 20px; padding-bottom: 15px; border-radius: 20px; background-color: black">
+		<p>1</p>
+		</div>
+				<br>
+				&nbsp
+				<br>
+	   	</div>
+		<!--contenedor para contenidos de cada sección-->
+    	<div class='seccion-contenedor' id="secc3">
+    		<!--contenedor para el texto de cada sección-->
+    		<div class="texto-secc">
+			<h1>LITERATURA</h1>
+			    <br>
+				&nbsp
+				<br>
+				<br>
+				&nbsp
+				<br>
+    			<div class="contenedor-columnas">
+				    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/8f7d35575fcd7e71a413a773e7407998/33d81ab4a1bd7f3d-ee/s640x960/9ab4cea259f9556b9c03214a821ffe46688f32f1.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>1984</h3>
+					<h4>George Orwell</h4>
+					<p align="justify">En el año 1984 la policía del pensamiento controla de forma asfixiante la vida de los ciudadanos. El protagonista, Winston Smith, vive en Londres y trabaja en el Ministerio de la Verdad. Smith es un ciudadano del gobierno en el que todas las personas están bajo vigilancia total y se castiga cualquier pensamiento libre. Winston no comparte estas ideas, pero lo oculta cuidadosamente, porque cualquiera que sea descubierto sufre una inevitable "curación" equivalente a la muerte mental.</p>
+					<br>
+					<br>
+					<a href="https://www.youtube.com/watch?v=_KZyug8i__M">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>
+                    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/153248449d987f5d9df516bef7d8eb07/33d81ab4a1bd7f3d-2e/s640x960/2bff3eb35bc07d881edd97255e55a026e46a8684.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>Un Mundo Feliz</h3>
+					<h4>Aldoux Huxley</h4>
+					<p align="justify"> Un clásico de la literatura del siglo XX, descrito como una sombría metáfora sobre el futuro. La novela describe un mundo en el que finalmente se han cumplido los peores vaticinios: triunfan los dioses del consumo y la comodidad, y el orbe se organiza en diez zonas en apariencia seguras y estables. Sin embargo, este mundo ha sacrificado valores humanos esenciales, y sus habitantes son procreados in vitro a imagen y semejanza de una cadena de montaje...</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/NpyKqS1b05U">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>	
+                    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/1b3af57b5c1605125e6ae9e32a901bde/33d81ab4a1bd7f3d-04/s640x960/15769179b6e6dcfd72b18ae129d58f6daf516f0c.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>The Rape of the Mind</h3>
+					<h4>Joost A. M. Meerloo</h4>
+					<p align="justify">El libro presenta un análisis sistemático de los métodos de lavado de cerebro, tortura y coerción mental, y muestra cómo la estrategia totalitaria, con su uso de la psicología de masas, conduce a una "violación mental" sistemática. Describe la nueva era de la guerra fría con su terror mental, verbocracia y confusión semántica, el uso del miedo como herramienta de sumisión masiva y el problema de la traición y la lealtad, tan cargado de peligrosa confusión.</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/NpyKqS1b05U?si=hZoeisIAO34r_sVQ&t=47">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>
+                    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/9b347e6b9207318b162499ea7f497fb3/33d81ab4a1bd7f3d-70/s640x960/62659ef713614d377cfcfe8d025b73152aab847d.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>Confesiones de un Gángster Económico</h3>
+					<h4>John Perkins</h4>
+					<p align="justify">John Perkins relata su particular trayectoria personal, de servidor obediente del Imperio a defensor apasionado de los derechos de los oprimidos. Discretamente seleccionado por la Agencia Nacional de Seguridad estadounidense y puesto en la nómina de una firma internacional de consultoría, estuvo en Indonesia, Panamá, Colombia, Arabia Saudí, Irán y otros países estratégicamente importantes del planeta.</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/NpyKqS1b05U?si=JDzLMOJUDfyg_5GZ&t=79">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>					
+				</div>
+    		</div>
+
+    	</div>
+				<br>
+				&nbsp
+				<br>
+		<div class="texto-secc" style="padding-left: 20px; padding-right: 20px; padding-bottom: 15px; border-radius: 20px; background-color: black">
+		<p>1</p>
+		</div>
+				<br>
+				&nbsp
+				<br>    	
+
+    	<!--contenedor para contenidos de cada sección-->
+    	<div class='seccion-contenedor' id="secc4">
+    		<!--contenedor para el texto de cada sección-->
+    		<div class="texto-secc">
+			<h1>FILMS</h1>
+			    <br>
+				&nbsp
+				<br>
+				<br>
+				&nbsp
+				<br>
+    			<div class="contenedor-columnas">
+				    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/9b86eb2a65279d6c09482762d7514de3/33d81ab4a1bd7f3d-50/s1280x1920/31080b6f105b0d32198274fdfd15a2ac310a759b.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>Land of the Blind (2006)</h3>
+					<h4>Director: Robert Edwards</h4>
+					<p align="justify">Un drama político sobre terrorismo, revolución y el poder de la memoria. En un tiempo y lugar indeterminado, un idealista soldado llamado Joe (Ralph Fiennes) entabla una prohibida amistad con un prisionero político de nombre Thorne (Donald Sutherland), quien finalmente lo recluta para un sangriento golpe de estado.</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/JnXLb9VlCuc">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>
+                    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/6f64330ac028f4e7204b8626ef0df008/33d81ab4a1bd7f3d-0c/s1280x1920/a5e97d5ba5cac042b0f289e32a78ff2c3f7a64ab.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>Zeitgesit The Movie (2007)</h3>
+					<h4>Director: Peter Joseph</h4>
+					<p align="justify"> Un documental estructurado en tres partes. La primera es una exposición del cristianismo como un mito, un híbrido astrológico-literario. La segunda parte, analizando los atentados del 11-S. La tercera sección habla sobre la política y economía global, enfocándose en el monopolio del dinero</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/zZ38NZ9IC_4">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>	
+                    <div class="columna">				 
+					<img src="https://64.media.tumblr.com/9dd14545391d6edae32860ac0aff1b08/33d81ab4a1bd7f3d-c6/s1280x1920/33f75dd36b269d5313180c791996fb2fd13e3445.pnj" title="Festival" alt="Imagen descriptiva" width="30%">
+					<div class="subcolumna">
+					<h3>Los Amos del Dinero (1996)</h3>
+					<h4>Director: William T. Still</h4>
+					<p align="justify">Documental imprescindible para entender las claves del capitalismo que sufrimos hoy en día. La estructura moderna del poder político tiene sus raíces en la manipulación oculta y la acumulación de oro y otras formas de dinero.¿Cómo se fundaron los bancos centrales privados? ¿Desde cuándo existe el capitalismo neoliberal?</p>
+					<br>
+					<br>
+					<a href="https://youtu.be/5vJ6fvIM00s">
+					     <p align="left">Trailer</p>
+					</a>
+					</div>
+					</div>
+                    				
+    		</div>
+				<br>
+				&nbsp
+				<br>
+    	</div>
+
+    </main>
+
+    <!------------pie de pagina----------->
+    <!--dentro de la etiqueta footer esta todo lo que sera el pie de página, pudiendo colocarse dentro del body o despues del body-->
+	<footer>
+	   
+	    <div class='footer-item'>
+	      <!----modificar el href para que dirija una pagina especifica de facebook----->
+	      <a href="https://www.facebook.com/">
+	      	<img src="https://64.media.tumblr.com/140c3bc452dfd40e4b205f806f5c031a/308cb51a99721618-23/s540x810/fedf74425cae3e50bba6383af70c1880d9b2ac73.pnj" title="Facebook">
+	      </a>
+	      <!----modificar el href para que dirija una pagina especifica de twitter----->
+	      <a href="https://twitter.com/">
+	      	<img src="https://64.media.tumblr.com/947967926efa49d3e016168584b3b96c/308cb51a99721618-b4/s540x810/8f2fa53fb1c6c9189382fb9a96ba31ab278741c8.pnj" title="Twitter">
+	      </a>
+	      <!----modificar el href para que dirija una pagina especifica de instagram----->
+	      <a href="http://instagram.com/">
+	      	<img src="https://64.media.tumblr.com/25601aef612047d5238475dee78499b6/308cb51a99721618-34/s540x810/e2e49f5475984bad78e1f97da96d60437b2315ac.pnj" title="Instagram">
+	      </a>
+	    </div>
+
+	    <div class="copyright">
+	    	<!----modificarlo con datos o mensaje propio----->
+	      <p style="">todos los derechos a sus respectivos autores</p>
+	    </div>
+	    
+	  </footer>
+	<!------------------------------------>
+
+	<!---------enlace que regresa al inicio de la pagina--------->
+	<!--dentro de la etiqueta "a" de tipo enlace esta la imagen que actua como icono que regresa al inicio de la página-->
+	    <a class="ir-arriba" title="Volver arriba" href="#inicio">
+	    	<!--si se quiere modificar contenido susutituir la imagen a la que referencia la etiqueta img-->
+	      	<img src="https://64.media.tumblr.com/ede1b9a5b213a8cac78e96066631986e/308cb51a99721618-ac/s400x600/69b0db47d123c3bfa2fb7506715c613d23a4516c.pnj">
+	    </a>
+
 </body>
+
 </html>
-
-
