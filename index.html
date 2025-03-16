@@ -201,6 +201,15 @@ header {
 }
 /**media query cuando ancho es menor o igual a 700px**/
 @media screen and (max-width: 700px) {
+	.secciones {/*caracteristicas elementos en contenedor con la clase menu-container*/
+  	background-image: url('https://64.media.tumblr.com/81d707f2dc94a4adb8e4904537fce0df/308cb51a99721618-db/s2048x3072/97ac069b9302e4c4a194c3c8edf3d18c77d3dafe.pnj');
+	background-size: auto 15%; 
+    background-repeat: no-repeat; 
+    background-position: top; 
+	}
+	.seccion-contenedor1 {
+        flex-direction: column;
+    }
 	.contenedor-columnas {
         flex-direction: column; /* Cambia a una sola columna */
     }
@@ -211,8 +220,17 @@ header {
 		font-size: 14pt;
 		flex-direction: column;
 	}
+	.texto-secc h1{
+	    flex-direction: column;
+		align-items: center; 
+	}
+	.texto-secc h2{
+		font-size: 50px;
+	    flex-direction: column;
+		align-items: center; 
+	}
 	.contenedor-imagen {
-    display: flex;
+    flex-direction: column;
   	align-items: center;
     }
 	.par-imgs-escritorio{/*caracteristicas elementos en contenedor con la clase secciones*/
